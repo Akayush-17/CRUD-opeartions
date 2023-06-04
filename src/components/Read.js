@@ -1,15 +1,30 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import axios from "axios";
 
-const Read = () => {
+const Read = () => {   
+
+    const [data, setData]=useState([]);
+    
 
     function getData() {
         axios.get("https://647b8829d2e5b6101db1671f.mockapi.io/Crudoperations").then((res) => {
-            console.log(res);
+            console.log(res.data);
+            setData(res.data);
         })
     }
 
-    getData();
+    function handleDelete(id) {
+      axios.delete(`https://647b8829d2e5b6101db1671f.mockapi.io/Crudoperations/${id}`
+      ).then(()=>{
+        getData()
+      })
+    
+    }
+    useEffect(()=>{
+      getData();
+    },[]);
+
+    
   return (
     <>
     <h1>READ</h1>
@@ -23,24 +38,37 @@ const Read = () => {
       <th scope="col"></th>
     </tr>
   </thead>
-  <tbody>
+  {
+    data.map((eachData)=>{
+      return (
+        <>
+         <tbody>
     <tr>
-      <th scope="row">1</th>
+      <th scope="row">{eachData.id}</th>
 
-      <td>Name</td>
-      <td>Email</td>
+      <td>{eachData.name}</td>
+      <td>{eachData.email}</td>
       
       <td>
       <button type="button" className="btn btn-outline-success">Edit</button>
 
       </td>
       <td>
-      <button type="button" className="btn btn-outline-danger">Delete</button>
+      <button 
+      onClick={()=> handleDelete(eachData.id)}
+      type="button" className="btn btn-outline-danger">Delete</button>
       </td>
     </tr>
     
   
   </tbody>
+        
+        
+        </>
+      )
+
+    })
+   }
   
 </table>
 </>

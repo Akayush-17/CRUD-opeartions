@@ -12,8 +12,13 @@ const Create = () => {
        name : name, 
        email: email,
        header,
+    })
+    
+    .then(()=>{
+      history("/read")
+
     });
-    history("/read")
+    
    
   };
 
