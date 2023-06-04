@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {NavLink} from 'react-router-dom';
 
 const Create = () => {
   
@@ -13,7 +14,7 @@ const Create = () => {
        email: email,
        header,
     })
-    
+
     .then(()=>{
       history("/read")
 
@@ -26,7 +27,13 @@ const Create = () => {
   const [email, setEmail]=useState("");
   return ( 
     <>
+    <div className='d-flex justify-content-between m-2'>
     <h1>CREATE</h1>
+    <NavLink to="/read">
+      <button className='btn btn-primary'>Show Data</button>
+    </NavLink>
+    </div>
+    
     <form>
   <div className="mb-3">
   <label for="exampleInputPassword1" class="form-label">Name</label>

@@ -1,5 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import axios from "axios";
+import {NavLink} from 'react-router-dom';
 
 const Read = () => {   
 
@@ -19,6 +20,12 @@ const Read = () => {
         getData()
       })
     
+    }
+
+    const setLocalStorage = (id,name,email) => {
+      localStorage.setItem("id",id);
+      localStorage.setItem("name",name);
+      localStorage.setItem("email",email);
     }
     useEffect(()=>{
       getData();
@@ -50,8 +57,18 @@ const Read = () => {
       <td>{eachData.email}</td>
       
       <td>
-      <button type="button" className="btn btn-outline-success">Edit</button>
+        <NavLink to="/update">
+      <button
+      onClick={()=>{
+        setLocalStorage(
+          eachData.id,
+          eachData.name,
+          eachData.email
 
+        )
+      }}
+      type="button" className="btn btn-outline-success">Edit</button>
+      </NavLink>
       </td>
       <td>
       <button 
